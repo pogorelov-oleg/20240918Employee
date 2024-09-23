@@ -13,8 +13,8 @@ public class Company {
         System.out.printf("%-30s %-13s %-10s %-10s %-8s %-14s\n",
                 "ФИО", "Вид оплаты", "Сумма", "Премия", "Налог", "К оплате");
         int sumMoney = 0;
-        int sumHryvniMinusTax = 0;
-        int sumTugriksMinusTax = 0;
+        int sumHryvniToBrPaid = 0;
+        int sumTugriksToBePaid = 0;
         int exchangeRate = 8;//курс гривны к тугрикам 1/8
         for (Employee employee : employees) {
             System.out.printf("%-30s %-13s %-10d %-10d %-8s ",
@@ -26,15 +26,15 @@ public class Company {
             if (employee.getPayment().getType() == PaymentType.WAGE) {
                 System.out.print(employee.getPayment().getMoneyToBePaid() / 2 + "/"
                         + (employee.getPayment().getMoneyToBePaid() / 2) / exchangeRate + "\n");
-                sumHryvniMinusTax += employee.getPayment().getMoneyToBePaid() / 2;
-                sumTugriksMinusTax += (employee.getPayment().getMoneyToBePaid() / 2) / exchangeRate;
+                sumHryvniToBrPaid += employee.getPayment().getMoneyToBePaid() / 2;
+                sumTugriksToBePaid += (employee.getPayment().getMoneyToBePaid() / 2) / exchangeRate;
             } else {
                 System.out.print(employee.getPayment().getMoneyToBePaid() + "\n");
-                sumHryvniMinusTax += employee.getPayment().getMoneyToBePaid();
+                sumHryvniToBrPaid += employee.getPayment().getMoneyToBePaid();
             }
             sumMoney += employee.getPayment().getMoney();
         }
-        System.out.printf("%-44s %-30d %-14s\n", "Итого:", sumMoney, sumHryvniMinusTax + "/" + sumTugriksMinusTax);
+        System.out.printf("%-44s %-30d %-14s\n", "Итого:", sumMoney, sumHryvniToBrPaid + "/" + sumTugriksToBePaid);
     }
 
     public ArrayList<Employee> getEmployees() {
